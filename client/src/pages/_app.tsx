@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import React from 'react';
 import App from 'next/app';
 import Head from 'next/head';
@@ -7,12 +8,19 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import theme from '../theme';
 import apolloClient from '../apollo/apolloClient';
 
+const jsonLdSiteSchema = `{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "url": "https://creatingvalue.co/",
+  "logo": "https://creatingvalue.co/images/generic/cva_logo_web-color.png"
+}`;
+
 export default class MyApp extends App {
   componentDidMount(): void {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
-    if (jssStyles) {
-      jssStyles.parentElement!.removeChild(jssStyles);
+    if (jssStyles && jssStyles.parentElement) {
+      jssStyles.parentElement.removeChild(jssStyles);
     }
   }
 
@@ -22,8 +30,10 @@ export default class MyApp extends App {
     return (
       <>
         <Head>
-          <title>My page</title>
+          <title>Creating Value Alliance</title>
           <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+          <meta name="google-site-verification" content="ye_bC1UgA2n5CqcohVV55f7YHahZlE1UWPzhfOmTTWk" />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdSiteSchema }} />
         </Head>
         <ThemeProvider theme={theme}>
           <ApolloProvider client={apolloClient}>

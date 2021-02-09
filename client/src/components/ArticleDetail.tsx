@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Grid, Theme, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Article } from '../shared.types';
+import Truncate from './Truncate';
 
 interface ArticleProps {
   article: Article;
@@ -23,13 +24,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-function truncateString(str: string, num: number): string {
-  if (str.length <= num) {
-    return str;
-  }
-  return `${str.slice(0, num)}...`;
-}
-
 const ArticleDetail: FC<ArticleProps> = ({
   article: {
     title,
@@ -46,7 +40,7 @@ const ArticleDetail: FC<ArticleProps> = ({
         {title}
       </Typography>
       <Typography className={classes.articleAbstract}>
-        {truncateString(abstract, 240)}
+        <Truncate text={abstract} position={240} />
       </Typography>
       <Grid container direction="row" justify="space-between" alignItems="center">
         <Grid item>

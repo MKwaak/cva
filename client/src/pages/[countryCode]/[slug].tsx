@@ -8,6 +8,7 @@ import Layout from '../../components/Layout';
 import { DocumentFrontMatter, PostBlog } from '../../shared.types';
 import Tags from '../../components/Tags';
 import Tag from '../../components/Tag';
+import ProfileImage from '../../components/ProfileImage';
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -31,14 +32,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   author: {
     marginBottom: theme.spacing(4),
-  },
-  profileImage: {
-    width: '5rem',
-    marginRight: theme.spacing(3),
-    '& img': {
-      borderRadius: '50%',
-      width: '100%',
-    },
   },
   [theme.breakpoints.down('sm')]: {
     firstContent: {
@@ -87,9 +80,7 @@ const BlogTemplate: NextPage<BlogTemplateProps> = ({ content, data }) => {
               <Grid item>
                 <Box alignItems="center" display="flex" flexDirection="row">
                   {authorImageUrl && (
-                    <Box className={classes.profileImage}>
-                      <img src={authorImageUrl} alt="" />
-                    </Box>
+                    <ProfileImage imageUrl={authorImageUrl} alt="Image of Marcel Kwakernaak" />
                   )}
                   <Box>
                     <Typography className={classes.small}>{author}</Typography>
@@ -117,8 +108,9 @@ const BlogTemplate: NextPage<BlogTemplateProps> = ({ content, data }) => {
 };
 
 BlogTemplate.getInitialProps = async (context: NextPageContext): Promise<BlogTemplateProps> => {
-  const { countryCode, slug } = context.query;
-  const content = await import(`../../posts/NL/${slug}.md`);
+  const { slug, countryCode } = context.query;
+  const postUrl = `${countryCode && typeof countryCode === 'string' ? countryCode.toUpperCase() : ''}/${slug}`;
+  const content = await import(`../../posts/${postUrl}.md`);
   const config = await import('../../data/config.json');
   const data = matter(content.default) as DocumentFrontMatter<PostBlog>;
 

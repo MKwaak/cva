@@ -1,31 +1,24 @@
+import { useEffect } from 'react';
 import { NextPage } from 'next';
-import Link from 'next/link';
-import { Grid, Container, Typography, Button, Theme } from '@material-ui/core';
+import { Grid, Container, Box, Typography, Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { ClassNameMap } from '@material-ui/core/styles/withStyles';
-import { ArrowForwardRounded } from '@material-ui/icons';
 import Layout from '../components/Layout';
 import Jumbo from '../components/Jumbo';
 import EventList from '../components/EventList';
-import Loading from '../components/Loading';
-import { Data, PostEvent } from '../shared.types';
-import useEvents from '../hooks/useEvents';
+import CountryList from '../components/CountryList';
+import Section from '../components/Section';
 
 const useStyles = makeStyles((theme: Theme) => ({
-  section: {
-    paddingTop: theme.spacing(6),
-    paddingBottom: theme.spacing(6),
-  },
-  sectionFirst: {
-    marginTop: theme.spacing(9),
-    backgroundColor: theme.palette.grey[300],
-  },
   container: {
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(4),
   },
   buttonReadMore: {
     marginRight: '10px',
+  },
+  white: {
+    color: 'white',
   },
   card: {
     marginTop: theme.spacing(6),
@@ -52,6 +45,25 @@ const useStyles = makeStyles((theme: Theme) => ({
   horizontalAction: {
     marginTop: theme.spacing(6),
   },
+  lastSectionHeading: {
+    marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(4),
+  },
+  titleMega: {
+    fontFamily: theme.typography.h1.fontFamily,
+  },
+  [theme.breakpoints.down('sm')]: {
+    titleMega: {
+      fontSize: '2rem',
+      lineHeight: '2.8rem',
+    },
+  },
+  [theme.breakpoints.up('lg')]: {
+    titleMega: {
+      fontSize: '4rem',
+      lineHeight: '4.8rem',
+    },
+  },
 }));
 
 interface IndexProps {
@@ -59,83 +71,111 @@ interface IndexProps {
   description: string;
 }
 
-const Index: NextPage<IndexProps> = ({ title, description }) => {
+const Index: NextPage<IndexProps> = () => {
   const classes: ClassNameMap<string> = useStyles({});
 
-  const events: Data<PostEvent>[] | null = useEvents();
+  useEffect(() => {
+    if (process.env.APP_VERSION) {
+      // eslint-disable-next-line no-console
+      console.info('Version: ', process.env.APP_VERSION);
+    }
+  }, []);
 
   return (
-    <Layout siteTitle={title} siteDescription={description}>
+    <Layout
+      siteTitle="Home | Creating Value Alliance"
+      siteDescription="Together we stand as an international alliance, help grow the creation of value and spread the value creation mindset."
+      homePage
+    >
       <Jumbo />
 
-      <section className={`${classes.section} ${classes.sectionFirst}`}>
+      <Section first>
         <Container className={classes.container} maxWidth="lg">
           <Grid container direction="row" justify="space-evenly" alignItems="center">
             <Grid item xs={12} md={4} className={classes.eventMainInfo}>
-              <Typography variant="h3" component="h2" gutterBottom>
-                Upcoming Events
+              <Typography className={classes.white} variant="h3" component="h2" gutterBottom>
+                Events
               </Typography>
-              <Typography variant="body1" gutterBottom>
+              <Typography className={classes.white} variant="body1" gutterBottom>
                 Connect with thinkers for <em>inspiration</em> and new <em>opportunities</em>.
               </Typography>
               {/* <Link href="/events" passHref>
-                <Button color="secondary" variant="contained" endIcon={<ArrowForwardRounded />}>
+                <Button color="primary" variant="contained" endIcon={<ArrowForwardRounded />}>
                   View all events
                 </Button>
               </Link> */}
             </Grid>
-            {events === null && <Loading />}
-            {events && (
-              <Grid item xs={12} md={6}>
-                <EventList posts={events} />
-              </Grid>
-            )}
+            <Grid item xs={12} md={6}>
+              <EventList />
+            </Grid>
           </Grid>
         </Container>
-      </section>
+      </Section>
 
-      <section className={classes.section}>
+      <Section>
+        <Grid container direction="row" justify="space-around">
+          <Grid item xs={10} md={6}>
+            <Typography variant="h3" component="h2" gutterBottom>Our philosophy</Typography>
+            <Box maxWidth="57rem">
+              <Typography gutterBottom>
+                We all seek value for ourselves, as well as for our businesses and for our society.
+                However, because we are so immersed in our day-to-day functional management,
+                we often overlook opportunities for{' '}
+                <strong>value creation</strong>
+                , possibly to the detriment of
+                our businesses and societal needs. Successful organizations and leaders create
+                value for their eco-systems which include themselves, customers, employees, partners
+                and other stakeholders.
+              </Typography>
+              <Typography>
+                This happens mostly unconsciously, yet there are challenges in gauging
+                and assessing ‘value’ and its impact. The Creating Value Alliance is an
+                international movement to increase our understanding of the concept of value and,
+                moreover, to find and promote ways of creating value consciously and more
+                abundantly (and destroy less value). This, in turn, will allow us to operate
+                more effectively, to build{' '}
+                <strong>social value</strong>{' '}
+                and to thrive and be ready for the challenges of a constantly changing and
+                disruptive world.
+              </Typography>
+              <Box mt={3} justifyContent="flex-end" display="flex">
+                <Typography component="span" className={`${classes.quoteAuthor}`}>
+                  - Gautam Mahajan
+                </Typography>
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </Section>
+
+      <Section backgroundColor="secondary">
+        <Grid container direction="row" justify="space-around">
+          <Grid item xs={10} md={8}>
+            <Typography className={`${classes.titleMega} ${classes.white}`}>
+              “Unless you make the unconscious conscious, it will direct your
+              life, and you will call it fate.”
+            </Typography>
+            <Box mt={3} justifyContent="flex-end" display="flex">
+              <Typography component="span" className={`${classes.quoteAuthor} ${classes.white}`}>
+                - Carl Jung
+              </Typography>
+            </Box>
+          </Grid>
+        </Grid>
+      </Section>
+
+      <Section>
         <Container className={classes.container} fixed maxWidth="lg">
-          <Grid container direction="row" justify="center" alignItems="center">
+          <Grid container direction="row" justify="center" alignItems="center" className={classes.lastSectionHeading}>
             <Grid item xs={12}>
               <Typography variant="h3" component="h2" align="center" gutterBottom>
                 Learn about value thinking
               </Typography>
             </Grid>
-          </Grid>
-          <Grid container>
-            <Grid item xs={12} md={4}>
-              <Typography variant="h4" component="h3">
-                Netherlands
-              </Typography>
-              <Typography gutterBottom>
-                A little text
-              </Typography>
-              <Link href="/posts" passHref>
-                <Button color="secondary" variant="contained" endIcon={<ArrowForwardRounded />}>
-                  View all posts
-                </Button>
-              </Link>
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <Typography variant="h4" component="h3">
-                Denmark (coming soon)
-              </Typography>
-              <Typography>
-                A little text
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <Typography variant="h4" component="h3">
-                Japan (coming soon)
-              </Typography>
-              <Typography>
-                A little text
-              </Typography>
-            </Grid>
+            <CountryList />
           </Grid>
         </Container>
-      </section>
+      </Section>
     </Layout>
   );
 };

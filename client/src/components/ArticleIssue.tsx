@@ -79,11 +79,12 @@ const ArticleIssue: FC<ArticleIssueProps> = ({ issue }) => {
   });
 
   if (error) {
+    // eslint-disable-next-line no-console
     console.log(error);
   }
 
   useEffect(() => {
-    async function getData() {
+    async function getData(): Promise<Volume[] | null> {
       const editions: Article[] | undefined = await data?.Get.Things.Article.sort(byYear);
       if (editions) {
         const uniqueVolumesSet: Set<string> = new Set(

@@ -9,11 +9,17 @@ Project:
 
 ## Development
 
-To start developing your application run `yarn dev`. This starts the development server on `http://localhost:3000`.
+To start developing your application run `yarn install` and then `yarn dev`. This starts the development server on `http://localhost:3000`.
 
 Visit `http://localhost:3000` to view your application.
 
-This will not start a Weaviate instance which you will need for the Article page.
+### Member subscription
+
+In order for the subscription form to work you will need to start the back-end server for this application. See `./src/server/README.md` for more information.
+
+### Articles page
+
+Weaviate is needed for the Article page.
 
 To start a weaviate navigate to **the root of this project** and run docker compose with the relevant services:
 

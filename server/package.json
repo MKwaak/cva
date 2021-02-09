@@ -1,0 +1,37 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "serve": "node -r dotenv/config index",
+    "dev": "env NODE_ENV=development nodemon app",
+    "test": "NODE_ENV=development jest --runInBand --detectOpenHandles",
+    "test:watch": "yarn test --watch",
+    "test:coverage": "yarn test --collect-coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.0",
+    "nodemailer": "^6.4.6"
+  },
+  "devDependencies": {
+    "jest": "^26.1.0",
+    "jest-fetch-mock": "^3.0.3",
+    "nodemon": "^2.0.3",
+    "supertest": "^4.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "automock": false,
+    "setupFiles": [
+      "./setupJest.js"
+    ]
+  }
+}

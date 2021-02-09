@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 interface PromoListItemProps {
-  key: string;
+  key?: string;
 }
 
 const PromoListItem: FC<PromoListItemProps> = ({

@@ -7,6 +7,7 @@ import NodeURL from 'url';
 
 type NextComposedProps = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> & NextLinkProps;
 
+// eslint-disable-next-line react/display-name
 const NextComposed = forwardRef<HTMLAnchorElement, NextComposedProps>((props, ref) => {
   const { as, href, replace, scroll, passHref, shallow, prefetch, ...other } = props;
 
@@ -58,5 +59,5 @@ const Link: FC<LinkPropsBase> = (props: LinkProps) => {
   );
 };
 
-// eslint-disable-next-line max-len
+// eslint-disable-next-line react/display-name, max-len
 export default forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => <Link {...props} innerRef={ref} />);

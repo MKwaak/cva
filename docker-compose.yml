@@ -3,7 +3,7 @@ services:
     environment:
       OCCURRENCE_WEIGHT_LINEAR_FACTOR: 0.75
       SCHEMA_PROVIDER_URL: etcd:2379
-    image: semitechnologies/contextionary:en0.10.0-v0.4.7
+    image: semitechnologies/contextionary:en0.16.0-v0.4.14
     ports:
     - 9999:9999
   esvector:
@@ -36,7 +36,7 @@ services:
     - --initial-cluster-state
     - new
     entrypoint: /usr/local/bin/etcd
-    image: gcr.io/etcd-development/etcd:v3.3.18
+    image: gcr.io/etcd-development/etcd:v3.3.8
     ports:
     - 2379:2379
   weaviate:
@@ -51,12 +51,12 @@ services:
     - config.yaml
     depends_on:
     - esvector
-    image: semitechnologies/weaviate:0.22.4
+    image: semitechnologies/weaviate:0.22.13
     ports:
     - 8080:8080
     restart: on-failure:0
     volumes:
-    - ./weaviate/config.yaml:/config.yaml
+    - ./config.yaml:/config.yaml
   cva:
     build: weaviate
     environment:
@@ -71,4 +71,26 @@ services:
     - cva
     ports:
       - "3000:3000"
+  api:
+    build: ./server
+    depends_on:
+    - client
+    ports:
+    - "5000:5000"
+  nginx: 
+    depends_on: 
+      - weaviate
+      - client
+      - api
+    environment: 
+      - NGINX_PORT=2222
+    image: nginx
+    links: 
+      - "weaviate:weaviate.com"
+      - "client:website.com"
+      - "api:api.com"
+    ports: 
+      - "2222:2222"
+    volumes: 
+      - "./nginx.conf:/etc/nginx/conf.d/default.conf"
 version: '3.4'

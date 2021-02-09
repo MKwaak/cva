@@ -1,0 +1,19 @@
+name: Server
+
+on:
+  pull_request:
+    paths-ignore:
+    - 'client/src/posts/**'
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: install
+        run: cd ./server && yarn install
+
+      - name: test
+        run: cd ./server && yarn test

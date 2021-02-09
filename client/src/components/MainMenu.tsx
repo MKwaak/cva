@@ -5,8 +5,9 @@ import Link from './Link';
 const pages = [
   { title: 'Home', href: '/' },
   { title: 'Countries', href: '/countries' },
-  { title: 'Events', href: '/events' },
+  { title: 'Upcoming Event', href: '/events/third-global-conference-on-creating-value' },
   { title: 'Articles', href: '/articles' },
+  { title: 'Join-us', href: '/join-us' },
   { title: 'Contact', href: '/contact' },
 ];
 
@@ -26,7 +27,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 const MainMenu: FC = () => {
   const classes = useStyles({});
   return (
-    <List component="nav" aria-label="main main-navigation">
+    <List
+      component="nav"
+      aria-label="main main-navigation"
+      aria-labelledby="main-nav-button"
+      id="main-nav"
+    >
       {pages.map(({ href, title }) => (
         <ListItem
           button

@@ -8,11 +8,11 @@ ENV NODE_ENV production
 
 COPY package*.json .
 
-RUN npm install
+RUN yarn install
 
 COPY . /home/app
 
-RUN npm run build
+RUN yarn run build
 
 EXPOSE 3000
 

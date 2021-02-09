@@ -44,21 +44,30 @@ export const SEARCH_QUERY_ARTICLES = gql`
 
 interface FuzzySearchProps {
   onSearchSubmit: {
+    (): void;
+  };
+  onSearchTermUpdate: {
+    (term: string): void;
+  };
+  onSearchResultsUpdate: {
     (data: {
       noResults: boolean;
       articles?: Article[] | undefined;
     }): void;
   };
-  onSearchTermUpdate: {
-    (term: string): void;
-  };
+  handleClearInput?: boolean;
 }
 
-const FuzzySearch: FC<FuzzySearchProps> = ({ onSearchSubmit, onSearchTermUpdate }) => {
+const FuzzySearch: FC<FuzzySearchProps> = ({
+  onSearchSubmit,
+  onSearchTermUpdate,
+  onSearchResultsUpdate,
+  handleClearInput,
+}) => {
   const classes = useStyles({});
   const [runQuery, { data, error }] = useLazyQuery(GET_BY_TERM);
-  const [term, setTerm] = useState('');
-  const [fieldError, setFieldError] = useState(false);
+  const [term, setTerm] = useState<string>('');
+  const [fieldError, setFieldError] = useState<boolean>(false);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setTerm(event.currentTarget.value);
@@ -77,21 +86,41 @@ const FuzzySearch: FC<FuzzySearchProps> = ({ onSearchSubmit, onSearchTermUpdate 
     const searchTerm: string = formData.get('searchTerm') as string;
     runQuery({ variables: { searchTerm } });
     onSearchTermUpdate(term);
+    onSearchSubmit();
   };
 
   useEffect((): void => {
     if (data) {
+      window.dataLayer.push({
+        event: 'search articles',
+        articleResults: data,
+      });
+
       setFieldError(false);
-      onSearchSubmit({
+      onSearchResultsUpdate({
         noResults: false,
         articles: data?.Get?.Things?.Article,
       });
     }
+  }, [data, term, onSearchResultsUpdate]);
+
+  useEffect((): void => {
     if (error) {
+      window.dataLayer.push({
+        event: 'search articles',
+        articleResults: error?.message || 'error',
+      });
+
       setFieldError(true);
-      onSearchSubmit({ noResults: true });
+      onSearchResultsUpdate({ noResults: true });
     }
-  }, [data, error, onSearchSubmit]);
+  }, [error, term, onSearchResultsUpdate]);
+
+  useEffect(() => {
+    if (handleClearInput) {
+      setTerm('');
+    }
+  }, [handleClearInput]);
 
   return (
     <form onSubmit={handleSubmit}>

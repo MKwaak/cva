@@ -1,10 +1,11 @@
 import { FC } from 'react';
-import { CardActionArea, CardContent, Paper, Typography, Theme } from '@material-ui/core';
+import { Grid, Box, CardActionArea, CardContent, Paper, Typography, Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { ClassNameMap } from '@material-ui/core/styles/withStyles';
 
 import Year from './Year';
 import Link from './Link';
+import Badge from './Badge';
 
 const useStyles = makeStyles((theme: Theme) => ({
   promoListTitle: {
@@ -36,6 +37,7 @@ interface CardProps {
   location?: string;
   timeStampEpoch?: number;
   intro?: string;
+  cancelled?: boolean;
 }
 
 const defaultProps = {
@@ -43,6 +45,7 @@ const defaultProps = {
   intro: undefined,
   location: undefined,
   timeStampEpoch: undefined,
+  cancelled: undefined,
 };
 
 const Card: FC<CardProps> = ({
@@ -54,8 +57,9 @@ const Card: FC<CardProps> = ({
   date,
   timeStampEpoch,
   intro,
+  cancelled,
 }) => {
-  const classes: ClassNameMap<string> = useStyles({});
+  const classes: ClassNameMap = useStyles({});
 
   return (
     <Paper
@@ -65,23 +69,32 @@ const Card: FC<CardProps> = ({
     >
       <CardActionArea className={classes.cardActionArea} component={Link} disableRipple href={slug}>
         <CardContent>
-          <Typography variant="overline" display="block">
-            {date}
-            {timeStampEpoch && (
-              <>
-                {', '}
-                <Year timeStamp={timeStampEpoch} />
-              </>
-            )}
-          </Typography>
-          <Typography component="h3" variant="h5" className={`${classes.promoListTitle} ${classes.smallGutter}`}>
-            {title}
-          </Typography>
-          {showIntro && (
-            <Typography variant="body2" className={classes.smallGutter}>
-              {intro}
+          <Grid container justify="space-between" alignItems="center">
+            <Grid item>
+              <Typography variant="overline" display="block">
+                {date}
+                {timeStampEpoch && (
+                  <>
+                    {', '}
+                    <Year timeStamp={timeStampEpoch} />
+                  </>
+                )}
+              </Typography>
+            </Grid>
+            <Grid item>
+              {cancelled && <Badge />}
+            </Grid>
+          </Grid>
+          <Box mt={1}>
+            <Typography component="h3" variant="h5" className={`${classes.promoListTitle} ${classes.smallGutter}`}>
+              {title}
             </Typography>
-          )}
+            {showIntro && (
+              <Typography variant="body2" className={classes.smallGutter}>
+                {intro}
+              </Typography>
+            )}
+          </Box>
         </CardContent>
       </CardActionArea>
       {children}

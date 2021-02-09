@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const intro = (
   <>
-    Together we stand as an alliance to grow <em>experiences</em> and introduce a <em>value creating</em>{' '}
+    Together we stand as an international alliance, help grow the creation of value and spread the value creation{' '}
     mindset.
   </>
 );
@@ -80,9 +80,9 @@ const Jumbo: FC = () => {
             <Typography className={classes.intro} gutterBottom>
               {intro}
             </Typography>
-            <Link href="/events" passHref>
-              <Button color="primary" variant="contained" endIcon={<ArrowForwardRounded />}>
-                View upcoming events
+            <Link href="/events/third-global-conference-on-creating-value" passHref>
+              <Button color="primary" variant="contained" endIcon={<ArrowForwardRounded />} aria-label="Go to the upcoming event page">
+                View Upcoming Event
               </Button>
             </Link>
           </Grid>

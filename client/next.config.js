@@ -1,3 +1,5 @@
+const package = require('./package.json');
+
 module.exports = {
   webpack(config) {
     config.module.rules.push({
@@ -5,5 +7,8 @@ module.exports = {
       use: 'raw-loader',
     });
     return config;
+  },
+  env: {
+    APP_VERSION: package.version,
   },
 };

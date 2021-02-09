@@ -8,13 +8,14 @@ import Card from './Card';
 
 interface BlogListProps {
   posts: Data<PostBlog>[];
+  countryFolder: 'nl' | 'jp';
 }
 
-const BlogList: FC<BlogListProps> = ({ posts }) => (
+const BlogList: FC<BlogListProps> = ({ posts, countryFolder }) => (
   <PromoList>
     {posts.map(({ document: { data }, slug }) => (
       <PromoListItem key={slug}>
-        <Card showIntro slug={`/nl/${slug}`} {...data}>
+        <Card showIntro slug={`/${countryFolder}/${slug}`} {...data}>
           {data.categories && (
             <Tags>
               {data.categories.map((category) => (

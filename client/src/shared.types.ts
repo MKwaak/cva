@@ -47,3 +47,8 @@ export interface Article {
   uuid: string;
   abstract: string;
 }
+
+export interface ServerResponseInterface {
+  type: 'success' | 'warning' | 'error';
+  message: string;
+}

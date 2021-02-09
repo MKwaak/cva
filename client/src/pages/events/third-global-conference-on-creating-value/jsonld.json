@@ -1,0 +1,52 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Third Global Conference on Creating Value",
+  "startDate": "2020-10-20T09:00:00+00:00",
+  "endDate": "2020-10-20T18:00:00+00:00",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "location": {
+    "@type": "Place",
+    "name": "École des Ponts Business School",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "6 Place Du Colonel",
+      "addressLocality": "paris",
+      "postalCode": "75012",
+      "addressRegion": "",
+      "addressCountry": "Paris"
+    }
+  },
+  "image": [
+    "https://creatingvalue.co/images/events/EDP/background_louvre_sm.jpg",
+    "https://creatingvalue.co/images/events/EDP/background_louvre_lg.jpg"
+  ],
+  "description": "The Global Conference on Creating Value in Paris aims to increase our understanding of what it means to create value in a constantly changing environment.",
+  "offers": {
+    "@type": "Offer",
+    "url": "https://creatingvalue.co/events/third-global-conference-on-creating-value",
+    "price": "350",
+    "priceCurrency": "EUR",
+    "availability": "https://schema.org/InStock",
+    "validFrom": "2020-10-20T09:00",
+    "alternateName": "Early Bird",
+    "description": "Ticket includes: 2 day access to all conferences, lunch, coffee breaks, networking app."
+  },
+  "performer": [
+    { "@type": "Person", "name": "Riel Miller", "sameAs": "https://rielmiller.com" },
+    { "@type": "Person", "name": "Kokubu Katshiko", "sameAs": "https://www.b.kobe-u.ac.jp/en/faculty/kokubu/" },
+    { "@type": "Person", "name": "Diane Magers", "sameAs": "https://cxuniversity.com/cx-thought-leaders/diane-magers/" },
+    { "@type": "Person", "name": "Hermann Simon", "sameAs": "http://hermannsimon.com/" },
+    { "@type": "Person", "name": "Stephen Vargo", "sameAs": "https://en.wikipedia.org/wiki/Stephen_Vargo" },
+    { "@type": "Person", "name": "Wayne Visser", "sameAs": "http://www.waynevisser.com/" },
+    { "@type": "Person", "name": "Gautam Mahajan", "sameAs": "https://www.linkedin.com/in/mahajancvf/" },
+    { "@type": "Person", "name": "Martin Calnan", "sameAs": "https://pontsbschool.com/about-the-school/staff-2/" },
+    { "@type": "Person", "name": "Dr. Martijn Rademakers", "sameAs": "https://www.uva.nl/profiel/r/a/m.f.l.rademakers/m.f.l.rademakers.html" }
+  ],
+  "organizer": {
+    "@type": "Organization",
+    "name": "Creating Value Alliance",
+    "url": "https://creatingvalue.co/"
+  }
+}

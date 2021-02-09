@@ -1,0 +1,19 @@
+name: Client
+
+on:
+  pull_request:
+    paths-ignore:
+    - 'client/src/posts/**'
+
+jobs:
+  test:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: install
+        run: cd ./client && yarn install
+
+      - name: lint
+        run: cd ./client && yarn lint

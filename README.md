@@ -3,13 +3,13 @@
 
 The scientific papers (Articles) are stored in a [knowledge graph](https://www.semi.technology/documentation/weaviate/current/about/philosophy.html). The tool used is [Weaviate](https://github.com/semi-technologies/weaviate).
 
-- [Building this application](#building-a-production-build)
+- [Building a production build](#building-a-production-build)
 - [Development](#development)
 - [Deployment](#deployment)
 
 ## Building a production build
 
-To start this application first build the client:
+To start this application first build it:
 
 ```bash
 $ docker-compose build --no-cache
@@ -25,8 +25,12 @@ Now you can open the client in the browser window by opening `http://localhost:3
 
 ## Development
 
-For developing the user interface navigate to the `./client` folder. In that folder you will find a readme with instructions on how to run this application.
+- User Interface: `./client`
+- Server (for Mailchimp subscription): `./server`
+- Articles (Weaviate): `./weaviate`
 
 ## Deployment
 
-T.B.D.
+Deployment is managed via Github. Once a push has been done an automated task will deploy this project. A typical deployment will take about +/- 15 mins.
+
+Bug: Occasionally the build will fail. One example is that the disk space is full. (json.log: no space left on device). Since this is managed elsewhere this repo has no control over this and will not be notified...

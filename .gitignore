@@ -2,5 +2,7 @@
 node_modules
 client/src/.next
 .idea
-
+env.json
+server/env.json
 client/.now
+server/coverage
